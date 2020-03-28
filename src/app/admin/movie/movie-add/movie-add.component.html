@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>Add Movie</h1>
+        </div>
+        <div class="col-6 text-right">
+            <button class="btn-primary" [routerLink]="['/admin/movie']" routerLinkActive="router-link-active" >Back</button>
+        </div>
+        <div class="col-12 text-center">
+            <form [formGroup]="movieForm" (ngSubmit)="onSubmit()">
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Title</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="text" name="title" formControlName="title" class="w-100"> <br>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Year</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="number" name="year" formControlName="year" class="w-100"> <br>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Note</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="number" name="note" formControlName="note" class="w-100"> <br>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Picture</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="text" name="picture" formControlName="picture" class="w-100"> <br>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Category</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <select formControlName="CategoryId" class="w-100">
+                            <option [ngValue]="null" disabled>Choose your category</option>
+                            <option *ngFor="let category of categories" [ngValue]="category.id">
+                             {{ category.name }}
+                            </option>
+                          </select> 
+                          <br>                    
+                    </div>
+                </div>
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Description</label>
+                     </div>
+                    <div class="col-12 col-sm-6">
+                        <textarea name="description" formControlName="description" class="w-100"> </textarea>                
+                    </div>
+                </div>
+
+              
+                  
+                <button type="submit" class="btn-primary mt-4">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

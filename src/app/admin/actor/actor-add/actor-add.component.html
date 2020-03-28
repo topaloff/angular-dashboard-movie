@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>Add Actor</h1>
+        </div>
+        <div class="col-6 text-right">
+            <button class="btn-primary" [routerLink]="['/admin/actor']" routerLinkActive="router-link-active" >Back</button>
+        </div>
+        <div class="col-12 text-center">
+            <form [formGroup]="actorForm" (ngSubmit)="onSubmit()">
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>First Name</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="text" name="firstname" formControlName="firstname" class="w-100"> <br>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="text" name="name" formControlName="name" class="w-100"> <br>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Birth</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="date" name="birth" formControlName="birth" class="w-100"> <br>
+                    </div>
+                </div>
+
+
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Gender</label>
+                     </div>
+                    <div class="col-12 col-sm-6 ">
+                        <span *ngFor="let gender of genders">
+                            <input id="{{ gender.id }}" type="radio" value="{{ gender.id }}" name="GenderId" formControlName="GenderId" class="mr-5">
+                            <label for="{{ gender.name }}" class="mr-5">{{ gender.name }}</label>
+                          </span>                     
+                    </div>
+                </div>
+
+              
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Country</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <select formControlName="CountryId" class="w-100">
+                            <option [ngValue]="null" disabled>Choose your country</option>
+                            <option *ngFor="let country of countries" [ngValue]="country.id">
+                             {{ country.name }}
+                            </option>
+                          </select> 
+                          <br>                    
+                    </div>
+                </div>
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Picture</label>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                       <input type="file" formControlName="picture" name="picture" (change)="uploadFile($event)">
+                    </div>
+                </div>
+
+                
+                  
+                <button type="submit" class="btn-primary mt-4">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
