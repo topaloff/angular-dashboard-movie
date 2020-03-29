@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ActorService } from 'src/app/shared/service/actor.service';
@@ -8,6 +8,7 @@ import { CountryService } from 'src/app/shared/service/country.service';
 import { Country } from 'src/app/shared/model/Country';
 import { Gender } from 'src/app/shared/model/Gender';
 import { GenderService } from 'src/app/shared/service/gender.service';
+import { Actor } from 'src/app/shared/model/Actor';
 
 @Component({
   selector: 'app-actor-add',
@@ -18,6 +19,7 @@ export class ActorAddComponent implements OnInit {
 
   countries: Country[];
   genders: Gender[];
+  file: File;
 
   actorForm = new FormGroup({
     name: new FormControl(),
@@ -32,7 +34,7 @@ export class ActorAddComponent implements OnInit {
     private actorService: ActorService,
     private countryService: CountryService,
     private genderService: GenderService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -50,17 +52,23 @@ export class ActorAddComponent implements OnInit {
     .subscribe(data => this.genders = data);
   }
 
-
-  uploadFile(event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.actorForm.patchValue({
-      picture: file
-    });
-    this.actorForm.get('picture').updateValueAndValidity()
+  onFileChanged(event) {
+    this.file = event.target.files[0]
   }
-  
+
   onSubmit() {
-    this.actorService.addActor(this.actorForm.value)
+    const formData = new FormData();
+    formData.append('name', this.actorForm.get('name').value);
+    formData.append('firstname', this.actorForm.get('firstname').value);
+    formData.append('birth', this.actorForm.get('birth').value);
+    formData.append('CountryId', this.actorForm.get('CountryId').value);
+    formData.append('GenderId', this.actorForm.get('GenderId').value);
+    if(this.file != undefined)
+    {
+      formData.append('picture', this.file, this.file.name);
+    }
+
+    this.actorService.addActor(formData)
         .subscribe(actor => {
           this.router.navigate(['/admin/actor']);
         });

@@ -16,6 +16,8 @@ export class MovieEditComponent implements OnInit {
 
   categories: Category[];
   id: number;
+  file: File;
+  avatar: string;
 
   movieForm = new FormGroup({
     title: new FormControl(),
@@ -49,11 +51,11 @@ export class MovieEditComponent implements OnInit {
       this.movieForm.patchValue({
             title: data.title,
             description: data.description,
-            picture: data.picture,
             year: data.year,
             note: data.note,
             CategoryId: data.CategoryId
       });
+      this.avatar = data.picture;
     });
   }
   getCategories(){
@@ -61,9 +63,24 @@ export class MovieEditComponent implements OnInit {
     .subscribe(data => this.categories = data);
   }
 
+  onFileChanged(event) {
+    this.file = event.target.files[0];
+  }
+
 
   onSubmit() {
-    this.movieService.editMovie(this.movieForm.value, this.id)
+    const formData = new FormData();
+    formData.append('title', this.movieForm.get('title').value);
+    formData.append('description', this.movieForm.get('description').value);
+    formData.append('year', this.movieForm.get('year').value);
+    formData.append('note', this.movieForm.get('note').value);
+    formData.append('CategoryId', this.movieForm.get('CategoryId').value);
+
+    if(this.file != undefined)
+    {
+      formData.append('picture', this.file, this.file.name);
+    }
+    this.movieService.editMovie(formData, this.id)
         .subscribe(movie => {
           this.router.navigate(['/admin/movie']);
         });

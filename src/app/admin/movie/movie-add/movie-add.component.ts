@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MovieService } from 'src/app/shared/service/movie.service';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -14,6 +14,7 @@ import { CategoryService } from 'src/app/shared/service/category.service';
 export class MovieAddComponent implements OnInit {
 
   categories: Category[];
+  file: File;
 
   movieForm = new FormGroup({
     title: new FormControl(),
@@ -27,7 +28,7 @@ export class MovieAddComponent implements OnInit {
   constructor(
     private movieService: MovieService,
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +41,24 @@ export class MovieAddComponent implements OnInit {
   }
 
 
+  onFileChanged(event) {
+    this.file = event.target.files[0]
+  }
+
   onSubmit() {
-    this.movieService.addMovie(this.movieForm.value)
+    const formData = new FormData();
+    formData.append('title', this.movieForm.get('title').value);
+    formData.append('description', this.movieForm.get('description').value);
+    formData.append('year', this.movieForm.get('year').value);
+    formData.append('note', this.movieForm.get('note').value);
+    formData.append('CategoryId', this.movieForm.get('CategoryId').value);
+
+    if(this.file != undefined)
+    {
+      formData.append('picture', this.file, this.file.name);
+    }
+
+    this.movieService.addMovie(formData)
         .subscribe(movie => {
           this.router.navigate(['/admin/movie']);
         });

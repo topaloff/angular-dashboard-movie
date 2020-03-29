@@ -33,7 +33,7 @@ export class MovieService {
   }
 
   // POST :  Add a movie
-  addMovie(movie: Movie): Observable<Movie> {
+  addMovie(movie): Observable<Movie> {
     return this.http.post<Movie>(env.apiUrl + 'movies/add', movie, {responseType: 'json'})
     .pipe(
       tap((data: Movie) => console.log(data)),
@@ -42,7 +42,7 @@ export class MovieService {
   }
 
   // PUT :  Edit a movie
-  editMovie(movie: Movie, id: number): Observable<Movie> {
+  editMovie(movie, id: number): Observable<Movie> {
     return this.http.put<Movie>(env.apiUrl + 'movies/edit/' + id, movie, {responseType: 'json'})
     .pipe(
       tap((data: Movie) => console.log(data)),

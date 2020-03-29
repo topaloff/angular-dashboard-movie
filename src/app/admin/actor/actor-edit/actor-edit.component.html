@@ -37,15 +37,6 @@
 
                 <div class="row justify-content-md-center mb-3">
                     <div class="col-12 col-sm-3">
-                        <label>Picture</label>
-                    </div>
-                    <div class="col-12 col-sm-6">
-                        <input type="text" name="picture" formControlName="picture" class="w-100"> <br>
-                    </div>
-                </div>
-
-                <div class="row justify-content-md-center mb-3">
-                    <div class="col-12 col-sm-3">
                         <label>Gender</label>
                      </div>
                     <div class="col-12 col-sm-6 ">
@@ -72,7 +63,16 @@
                     </div>
                 </div>
 
-                
+                <div class="row justify-content-md-center mb-3">
+                    <div class="col-12 col-sm-3">
+                        <label>Picture</label>
+
+                    </div>
+                    <div class="col-12 col-sm-6 text-center">
+                        <img class="card-img-top" src="http://localhost:3000/{{ avatar }}" class="w-50">
+                        <input type="file" (change)="onFileChanged($event)" formControlName="picture" name="picture" id="picture">
+                    </div>
+                </div>
                   
                 <button type="submit" class="btn-primary mt-4" [disabled]="!actorForm.valid">Submit</button>
             </form>

@@ -33,8 +33,8 @@ export class ActorService {
   }
 
   // POST :  Add a actor
-  addActor(actor: Actor): Observable<Actor> {
-    return this.http.post<Actor>(env.apiUrl + 'actors/picture', actor, {responseType: 'json'})
+  addActor(actor): Observable<Actor> {
+    return this.http.post<Actor>(env.apiUrl + 'actors/add', actor, {responseType: 'json'})
     .pipe(
       tap((data: Actor) => console.log(data)),
       catchError(this.errorService.handleError<Actor>('addActor'))
@@ -42,7 +42,7 @@ export class ActorService {
   }
 
   // PUT :  Edit a actor
-  editActor(actor: Actor, id: number): Observable<Actor> {
+  editActor(actor, id: number): Observable<Actor> {
     return this.http.put<Actor>(env.apiUrl + 'actors/edit/' + id, actor, {responseType: 'json'})
     .pipe(
       tap((data: Actor) => console.log(data)),

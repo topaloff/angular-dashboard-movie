@@ -22,7 +22,8 @@ export class ActorEditComponent implements OnInit {
   countries: Country[];
   genders: Gender[];
   id: number;
-  selectedGender: number;
+  file: File;
+  avatar: string;
 
   actorForm = new FormGroup({
     name: new FormControl(),
@@ -39,26 +40,16 @@ export class ActorEditComponent implements OnInit {
     private genderService: GenderService,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient,
     private datePipe: DatePipe,
-    private fb: FormBuilder
   ) {
     this.route.params
     .subscribe(params => this.id = params.id);
   }
 
   ngOnInit(): void {
+    this.getActorDetail(this.id);
     this.getCountries();
     this.getGenders();
-    this.getActorDetail(this.id);
-    this.actorForm = this.fb.group({
-      name: new FormControl(),
-      firstname: new FormControl(),
-      birth: new FormControl(),
-      picture: new FormControl(),
-      CountryId: new FormControl(),
-      GenderId: new FormControl(1)
-    });
   }
 
   // Get the actor
@@ -70,10 +61,10 @@ export class ActorEditComponent implements OnInit {
             name: data.name,
             firstname: data.firstname,
             birth: this.datePipe.transform(data.birth, 'yyyy-MM-dd'),
-            picture: data.picture,
             CountryId: data.CountryId,
-            GenderId: data.GenderId
+            GenderId: data.GenderId,
       });
+      this.avatar = data.picture;
     });
   }
 
@@ -87,9 +78,23 @@ export class ActorEditComponent implements OnInit {
     .subscribe(data => this.genders = data);
   }
 
+  onFileChanged(event) {
+    this.file = event.target.files[0];
+  }
 
   onSubmit() {
-    this.actorService.editActor(this.actorForm.value, this.id)
+    const formData = new FormData();
+    formData.append('name', this.actorForm.get('name').value);
+    formData.append('firstname', this.actorForm.get('firstname').value);
+    formData.append('birth', this.actorForm.get('birth').value);
+    formData.append('CountryId', this.actorForm.get('CountryId').value);
+    formData.append('GenderId', this.actorForm.get('GenderId').value);
+    if(this.file != undefined)
+    {
+      formData.append('picture', this.file, this.file.name);
+    }
+
+    this.actorService.editActor(formData, this.id)
         .subscribe(actor => {
           this.router.navigate(['/admin/actor']);
         });
