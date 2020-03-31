@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h1>Add Actor to {{ movie?.title }}</h1>
+        </div>
+        <div class="col-2 text-right">
+            <button class="btn-primary" [routerLink]="['/admin/movie']" routerLinkActive="router-link-active" >Back</button>
+        </div>
+        <div class="col-12 text-center">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="actor">Actor</label>
+                    <div class="row">
+                    <div *ngFor="let actor of actorsList" class="col-3">
+                      <label>
+                        <input type="checkbox" value="{{actor.id}}" (change)="onCheckboxChange($event)" />
+                            {{ actor.name}}
+                      </label>
+                    </div></div>
+                </div>
+                
+                <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

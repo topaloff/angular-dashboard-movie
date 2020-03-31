@@ -4,6 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MovieListComponent } from './movie/movie-list/movie-list.component';
 import { MovieAddComponent } from './movie/movie-add/movie-add.component';
 import { MovieEditComponent } from './movie/movie-edit/movie-edit.component';
+import { AddActorComponent } from './movie/add-actor/add-actor.component';
 import { CategoryListComponent } from './category/category-list/category-list.component';
 import { CategoryAddComponent } from './category/category-add/category-add.component';
 import { CategoryEditComponent } from './category/category-edit/category-edit.component';
@@ -31,7 +32,9 @@ import { SharedModule } from '../shared/shared.module';
     GenderEditComponent,
     ActorListComponent,
     ActorAddComponent,
-    ActorEditComponent],
+    ActorEditComponent,
+    AddActorComponent
+  ], 
   imports: [
     CommonModule,
     SharedModule,

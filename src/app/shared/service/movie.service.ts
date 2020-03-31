@@ -60,6 +60,14 @@ export class MovieService {
           );
       }
 
+      addActor(actor:number[], id:number):Observable<any>{
+        const url = env.apiUrl + 'movies/actor/' + id;
+        return this.http.post<Movie>(url, {"actorId":actor}, {responseType: 'json'})
+        .pipe(
+          tap((data) => console.log(data)),
+          catchError(this.errorService.handleError<Movie>('deleteMovie'))
+          );
+      }
 
 
 }

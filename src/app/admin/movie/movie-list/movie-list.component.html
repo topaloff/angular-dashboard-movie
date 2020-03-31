@@ -15,6 +15,7 @@
                     <th scope="col">id</th>
                     <th scope="col">Title</th>
                     <th scope="col">Year</th>
+                    <th scope="col">Actors</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -24,6 +25,12 @@
                         <td>{{ movie.title }}</td>
                         <td>{{ movie.year }}</td>
                         <td>
+                            <p *ngFor="let actor of movie.Actors">
+                                {{ actor.firstname }} {{ actor.name}}
+                            </p>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary mr-2" [routerLink]="['/admin/movie/add/actor', movie.id]">Edit actor</button>
                             <button class="btn btn-warning mr-2" [routerLink]="['/admin/movie/edit', movie.id]">Edit</button>
                             <button class="btn btn-danger" (click)="deleteMovie(movie.id)">Delete</button>
                         </td>

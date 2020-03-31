@@ -9,6 +9,7 @@ import { MovieAddComponent } from './movie/movie-add/movie-add.component';
 import { ActorAddComponent } from './actor/actor-add/actor-add.component';
 import { ActorEditComponent } from './actor/actor-edit/actor-edit.component';
 import { MovieEditComponent } from './movie/movie-edit/movie-edit.component';
+import { AddActorComponent } from './movie/add-actor/add-actor.component';
 
 const adminRoutes: Routes = [
     { path: 'actor', component: AdminActorList },
@@ -18,6 +19,7 @@ const adminRoutes: Routes = [
     { path: 'category/add', component: CategoryAddComponent },
     { path: 'category/edit/:id', component: CategoryEditComponent },
     { path: 'movie', component: AdminMovieList },
+    { path: 'movie/add/actor/:id', component: AddActorComponent },
     { path: 'movie/add', component: MovieAddComponent },
     { path: 'movie/edit/:id', component: MovieEditComponent },
 ];

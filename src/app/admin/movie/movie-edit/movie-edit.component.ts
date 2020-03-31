@@ -43,7 +43,7 @@ export class MovieEditComponent implements OnInit {
     this.getMovieDetail(this.id)
   }
 
-  // Get the actor
+  // Get the movie
   getMovieDetail(id: number) {
     this.movieService.getMovieDetail(id)
     .subscribe( data => {
