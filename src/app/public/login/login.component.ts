@@ -21,10 +21,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.connectorService.login(this.loginForm.value)
-        .subscribe(data => {
-          localStorage.setItem('auth', data.token);
-          console.log(data);
-          this.router.navigate(['/admin/movie']);
+        .subscribe(data=> {
+          console.log(data)
+            if(data.token != null || data.token != undefined){
+              localStorage.setItem('auth', data.token);
+              console.log(data);
+              this.router.navigate(['/admin/movie']);
+            }
+            else{
+              this.router.navigate(['/public/dashboard']);
+            }
         });
     }
   }

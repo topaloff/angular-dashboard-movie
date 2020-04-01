@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -19,28 +19,30 @@ export class ConnectorService {
   }
 
 
-  public login(params): Observable<any> {
+  public login(params): Observable<T> {
     return this.http.post(
       env.apiUrl + 'users/login', params,{responseType: 'json'}
     )
     .pipe(
       tap(data => {
-        console.log(data)
-        this._connected.next(true);
+        if (data.token != null || data.token != undefined) {
+                this._connected.next(true);
+        }
+
       }),
       catchError(this.errorService.handleError('getActors', []))
     );
   }
 
-  public postRequest(url, params) : Observable<any> {
+  public postRequest(url, params): Observable<any> {
     return this.http.post(
       url,
       {
-        params : params
+        params: params
       }
-    )
+    );
   }
-  
+
   public isLoggedIn() {
     if (localStorage.getItem('auth')) {
       this._connected.next(true);
