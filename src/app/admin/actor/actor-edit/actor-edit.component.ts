@@ -21,7 +21,7 @@ export class ActorEditComponent implements OnInit {
 
   countries: Country[];
   genders: Gender[];
-  id: number;
+  id: string;
   file: File;
   avatar: string;
 
