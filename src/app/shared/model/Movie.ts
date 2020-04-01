@@ -1,7 +1,7 @@
 import { Actor } from './Actor';
 
 export class Movie {
-    id: number;
+    id: string;
     title: string;
     description: string;
     picture: string;

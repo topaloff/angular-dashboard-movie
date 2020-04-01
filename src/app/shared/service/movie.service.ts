@@ -24,7 +24,7 @@ export class MovieService {
   }
 
    // ** Get Movie
-   getMovieDetail(id: number): Observable<Movie> {
+   getMovieDetail(id: string): Observable<Movie> {
     return this.http.get<any>(env.apiUrl + 'movies/' + id)
     .pipe(
       tap(data => data),
@@ -42,7 +42,7 @@ export class MovieService {
   }
 
   // PUT :  Edit a movie
-  editMovie(movie, id: number): Observable<Movie> {
+  editMovie(movie, id: string): Observable<Movie> {
     return this.http.put<Movie>(env.apiUrl + 'movies/edit/' + id, movie, {responseType: 'json'})
     .pipe(
       tap((data: Movie) => console.log(data)),
@@ -60,7 +60,7 @@ export class MovieService {
           );
       }
 
-      addActor(actor:number[], id:number):Observable<any>{
+      addActor(actor:string[], id:string):Observable<any>{
         const url = env.apiUrl + 'movies/actor/' + id;
         return this.http.post<Movie>(url, {"actorId":actor}, {responseType: 'json'})
         .pipe(

@@ -15,7 +15,7 @@ import { CategoryService } from 'src/app/shared/service/category.service';
 export class MovieEditComponent implements OnInit {
 
   categories: Category[];
-  id: number;
+  id: string;
   file: File;
   avatar: string;
 
@@ -44,7 +44,7 @@ export class MovieEditComponent implements OnInit {
   }
 
   // Get the movie
-  getMovieDetail(id: number) {
+  getMovieDetail(id: string) {
     this.movieService.getMovieDetail(id)
     .subscribe( data => {
       console.log(data);

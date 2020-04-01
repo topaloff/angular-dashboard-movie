@@ -53,7 +53,7 @@ export class ActorEditComponent implements OnInit {
   }
 
   // Get the actor
-  getActorDetail(id: number) {
+  getActorDetail(id: string) {
     this.actorService.getActorDetail(id)
     .subscribe( data => {
       console.log(data);

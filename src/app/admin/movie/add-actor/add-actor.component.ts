@@ -15,8 +15,8 @@ export class AddActorComponent implements OnInit {
 
   movie: Movie;
   actors: Actor[];
-  actorsSelected: number[] = [];
-  id: number;
+  actorsSelected: string[] = [];
+  id: string;
   form: FormGroup;
 
   constructor(
@@ -39,8 +39,8 @@ export class AddActorComponent implements OnInit {
     return this.f && this.f.actorsFormGroup as FormGroup;
   }
 
-  get actorsFormGroupSelectedIds(): number[] {
-    let ids: number[] = [];
+  get actorsFormGroupSelectedIds(): string[] {
+    let ids: string[] = [];
     for (let key in this.actorsFormGroup.controls) {
       if (this.actorsFormGroup.controls[key].value) {
         ids.push(key);
@@ -67,7 +67,7 @@ export class AddActorComponent implements OnInit {
   }
 
 
-  buildActorFormGroup(actors: Actor[], selectedActorIds: number[] = []): FormGroup {
+  buildActorFormGroup(actors: Actor[], selectedActorIds: string[] = []): FormGroup {
     const group = this.fb.group({}, {
       validators: atLeastOneCheckboxCheckedValidator()
     });

@@ -1,5 +1,5 @@
 export class Actor {
-    id: number;
+    id: string;
     name: string;
     firstname: string;
     birth: Date;

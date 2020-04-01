@@ -24,7 +24,7 @@ export class ActorService {
   }
 
   // ** Get Actor
-  getActorDetail(id: number): Observable<Actor> {
+  getActorDetail(id: string): Observable<Actor> {
     return this.http.get<any>(env.apiUrl + 'actors/' + id)
     .pipe(
       tap(data => data),
@@ -42,7 +42,7 @@ export class ActorService {
   }
 
   // PUT :  Edit a actor
-  editActor(actor, id: number): Observable<Actor> {
+  editActor(actor, id: string): Observable<Actor> {
     return this.http.put<Actor>(env.apiUrl + 'actors/edit/' + id, actor, {responseType: 'json'})
     .pipe(
       tap((data: Actor) => console.log(data)),
