@@ -19,13 +19,14 @@ export class ConnectorService {
   }
 
 
-  public login(params): Observable<T> {
+  public login(params): Observable<any> {
     return this.http.post(
       env.apiUrl + 'users/login', params,{responseType: 'json'}
     )
     .pipe(
       tap(data => {
-        if (data.token != null || data.token != undefined) {
+        const result: any = data;
+        if (result.token != null || result.token != undefined) {
                 this._connected.next(true);
         }
 
@@ -58,4 +59,9 @@ export class ConnectorService {
     this.router.navigate(['/public/dashboard']);
   }
 
+}
+
+interface Result {
+  message: string;
+  token: string;
 }
