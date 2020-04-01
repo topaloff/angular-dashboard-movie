@@ -1,3 +1,5 @@
+import { Actor } from './Actor';
+
 export class Movie {
     id: number;
     title: string;
@@ -6,6 +8,7 @@ export class Movie {
     year: number;
     note: number;
     CategoryId: number;
+    Actors: Actor[];
     createdAt: Date;
     updatedAt: Date;
     constructor(title: string, description: string, picture: string = '', year: number, note: number, CategoryId: number) {

@@ -1,9 +1,10 @@
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';import { Component, OnInit } from '@angular/core';
 import { MovieService } from 'src/app/shared/service/movie.service';
 import { Movie } from 'src/app/shared/model/Movie';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Actor } from 'src/app/shared/model/Actor';
 import { ActorService } from 'src/app/shared/service/actor.service';
+import { atLeastOneCheckboxCheckedValidator } from './atLeastOneCheckboxCheckedValidator';
 
 @Component({
   selector: 'app-add-actor',
@@ -13,13 +14,10 @@ import { ActorService } from 'src/app/shared/service/actor.service';
 export class AddActorComponent implements OnInit {
 
   movie: Movie;
-  actorsList: Actor[];
+  actors: Actor[];
+  actorsSelected: number[] = [];
   id: number;
-
-  movieForm: FormGroup;
-
   form: FormGroup;
-
 
   constructor(
     private movieService: MovieService,
@@ -27,47 +25,65 @@ export class AddActorComponent implements OnInit {
     private router: Router,
     private actorService: ActorService,
     private fb: FormBuilder) {
-
-      //Get the id parameter
+      // Get the id parameter
       this.route.params
       .subscribe(params => this.id = params.id);
+  }
 
-      this.form = this.fb.group({
-        actor: this.fb.array([])
-      })
+
+  get f() {
+    return this.form && this.form.controls;
+  }
+
+  get actorsFormGroup(): FormGroup {
+    return this.f && this.f.actorsFormGroup as FormGroup;
+  }
+
+  get actorsFormGroupSelectedIds(): number[] {
+    let ids: number[] = [];
+    for (let key in this.actorsFormGroup.controls) {
+      if (this.actorsFormGroup.controls[key].value) {
+        ids.push(key);
+      }
+    }
+    return ids;
   }
 
   ngOnInit(): void {
-    this.getMovieDetail(this.id);
-    this.getActors();
- }
-
-  // Get the movie
-  getMovieDetail(id: number) {
-    this.movieService.getMovieDetail(id)
+    this.form = this.fb.group({
+      name: ['', Validators.required]
+    });
+    this.movieService.getMovieDetail(this.id)
     .subscribe( data => {
       this.movie = data;
+      data.Actors.forEach(actor => { this.actorsSelected.push(actor.id); });
+      console.log(this.actorsSelected);
+      this.actorService.getActors()
+      .subscribe(data => {
+          this.actors = data;
+          this.form.addControl('actorsFormGroup', this.buildActorFormGroup(data, this.actorsSelected));
+      });
     });
   }
 
-  getActors(){
-    this.actorService.getActors()
-    .subscribe(data => {
-      this.actorsList = data;
+
+  buildActorFormGroup(actors: Actor[], selectedActorIds: number[] = []): FormGroup {
+    const group = this.fb.group({}, {
+      validators: atLeastOneCheckboxCheckedValidator()
     });
+    actors.forEach(actor => {
+      const isSelected = this.actorsSelected.some(id => id === actor.id);
+      group.addControl( actor.id, this.fb.control(isSelected));
+    })
+    return group;
   }
-  onCheckboxChange(e) {
-    const actor: FormArray = this.form.get('actor') as FormArray;
-  
-    if (e.target.checked) {
-      actor.push(new FormControl(e.target.value));
-    } else {
-       const index = actor.controls.findIndex(x => x.value === e.target.value);
-       actor.removeAt(index);
-    }
-  }
+
+
   submit(){
-    this.movieService.addActor(this.form.value.actor, this.id)
-    .subscribe(data => console.log(data))
+    console.log(this.actorsFormGroupSelectedIds)
+    this.movieService.addActor(this.actorsFormGroupSelectedIds, this.id)
+    .subscribe(data => {
+      this.router.navigate(['/admin/movie']);
+    })
   }
 }

@@ -9,17 +9,15 @@
         <div class="col-12 text-center">
             <form [formGroup]="form" (ngSubmit)="submit()">
                 <div class="form-group">
-                    <label for="actor">Actor</label>
-                    <div class="row">
-                    <div *ngFor="let actor of actorsList" class="col-3">
-                      <label>
-                        <input type="checkbox" value="{{actor.id}}" (change)="onCheckboxChange($event)" />
-                            {{ actor.name}}
-                      </label>
-                    </div></div>
+                    <label>Actor<strong>(Form Group)</strong></label>
+                    <div class="checkbox-group" >
+                      <div *ngFor="let item of actors; let i = index" class="checkbox">
+                        <label><input type="checkbox" [formControl]="actorsFormGroup?.controls[item.id]" /> {{ actors[i]?.name }}
+                        </label>
+                      </div>
+                    </div>
                 </div>
-                
-                <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+                <button class="btn btn-primary" type="submit" >Submit</button>
             </form>
         </div>
     </div>
