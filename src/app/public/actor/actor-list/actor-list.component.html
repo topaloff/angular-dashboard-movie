@@ -1,13 +1,21 @@
 <div class="container mt-3">
     <div class="row">
-      <div class="col-12">
+      <div class="col-9">
         <h1>
             Actor
         </h1>
     </div>
+    <div class="col-3">
+      <select class="w-100" (change)="onItemChange($event.target.value)">
+        <option [ngValue]="null" selected>All</option>
+        <option *ngFor="let country of countries" [ngValue]="country">
+         {{ country.name }}
+        </option>
+      </select> 
+    </div>
 </div>
 <div class="container mt-3">
-  <div class="row">
+  <div class="row" >
     <div class="col-12 col-sm-6 col-xl-3" *ngFor="let actor of actors">
       <div class="card w-100 bg-dark">
         <img class="card-img-top" src="http://localhost:3000/{{ actor.picture }}" alt="{{actor.firstname }} {{ actor.name}}">
@@ -17,6 +25,11 @@
           <a href="#" class="btn btn-primary">Detail</a>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="actors?.length == 0">
+    <div class="col-12 text-center">
+      No actors
     </div>
   </div>
 </div>

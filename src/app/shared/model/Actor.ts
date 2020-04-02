@@ -1,9 +1,11 @@
+import { Country } from 'src/app/shared/model/Country';
 export class Actor {
     id: string;
     name: string;
     firstname: string;
     birth: Date;
     picture: string;
+    Country: Country;
     CountryId: number;
     GenderId: number;
     createdAt: Date;
