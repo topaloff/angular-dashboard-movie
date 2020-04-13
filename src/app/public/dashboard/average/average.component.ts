@@ -1,3 +1,4 @@
+import { MovieService } from 'src/app/shared/service/movie.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AverageComponent implements OnInit {
 
-  constructor() { }
+  average: number;
+  constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
+    this.movieAverage();
   }
 
+  movieAverage() {
+    this.movieService.movieAverage()
+    .subscribe(data => this.average = data[0].value);
+  }
 }

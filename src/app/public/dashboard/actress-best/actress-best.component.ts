@@ -17,6 +17,5 @@ export class ActressBestComponent implements OnInit {
   getMovies(){
     this.actorService.getCount()
     .subscribe(data => this.actors = data.filter(actor => actor.Actor.Gender.name === 'Femme'));
-
   }
 }

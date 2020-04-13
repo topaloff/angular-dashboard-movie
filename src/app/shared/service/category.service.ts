@@ -23,6 +23,15 @@ export class CategoryService {
     );
   }
 
+  // ** Get Categories Count
+  getCount(): Observable<any[]> {
+    return this.http.get<any[]>(env.apiUrl + 'categories/count')
+    .pipe(
+      tap(data => data),
+      catchError(this.errorService.handleError('getCategories', []))
+    );
+  }
+
   // ** Get Category
   getCategoryDetail(id: number): Observable<Category> {
     return this.http.get<any>(env.apiUrl + 'categories/' + id)

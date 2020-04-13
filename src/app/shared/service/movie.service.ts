@@ -41,6 +41,15 @@ export class MovieService {
     );
   }
 
+  // Get Average Note
+  movieAverage(): Observable<any> {
+    return this.http.get<number>(env.apiUrl + 'movies/average')
+    .pipe(
+      tap(data => data),
+      catchError(this.errorService.handleError('getMovieYear'))
+    );
+  }
+
    // ** Get Movie
    getMovieDetail(id: string): Observable<Movie> {
     return this.http.get<any>(env.apiUrl + 'movies/' + id)
