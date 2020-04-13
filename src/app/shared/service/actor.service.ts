@@ -32,6 +32,15 @@ export class ActorService {
     );
   }
 
+  // ** Get Actors Count
+  getCount(): Observable<any> {
+    return this.http.get<any>(env.apiUrl + 'actors/count')
+    .pipe(
+      tap(data => data),
+      catchError(this.errorService.handleError('getBalance'))
+    );
+  }
+
   // ** Get Actor
   getActorDetail(id: string): Observable<Actor> {
     return this.http.get<any>(env.apiUrl + 'actors/' + id)

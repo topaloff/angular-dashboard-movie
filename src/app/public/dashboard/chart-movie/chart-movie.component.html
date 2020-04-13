@@ -1,16 +1,18 @@
-<div class="row pb-2 mb-2">
+<div class="row bg-dark rounded-lg m-1 pt-2 pb-4 px-1">
     <div class="col-12 text-center">
         Distribution by year
     </div>
-</div>
-<div style="display: block" *ngIf="barChartData.length > 0">
-    <canvas baseChart
-        [data]="barChartData"
-        [labels]="barChartLabels"
-        [chartType]="barChartType"
-        [legend]="false"
-        [options]="barChartOption">
+    <div class="col-12">
+        <div style="display: block" *ngIf="barChartData.length > 0">
+            <canvas baseChart
+                [data]="barChartData"
+                [labels]="barChartLabels"
+                [chartType]="barChartType"
+                [legend]="false"
+                [options]="barChartOption">
 
-    </canvas>
-  </div>
+            </canvas>
+        </div>
+    </div>
+</div>
 

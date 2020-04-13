@@ -1,13 +1,14 @@
-<div class="row pb-2 mb-2">
-    <div class="col-12 text-center">
+<div class="row bg-dark rounded-lg m-1 pt-2 pb-4 px-1">
+    <div class="col-12 text-center mb-4">
         Distribution by sex
     </div>
-</div>
-<div style="display: block" *ngIf="doughnutChartData.length > 0">
-    <canvas baseChart
+    <div class="col-12">
+        <div style="display: block" *ngIf="doughnutChartData.length > 0">
+            <canvas baseChart
                 [data]="doughnutChartData"
                 [labels]="doughnutChartLabels"
                 [chartType]="doughnutChartType">
             </canvas>
-  </div>
-
+        </div>
+    </div>
+</div>
