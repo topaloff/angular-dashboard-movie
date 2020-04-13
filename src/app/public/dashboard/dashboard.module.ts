@@ -8,13 +8,17 @@ import { ActorBestComponent } from './actor-best/actor-best.component';
 import { ActressBestComponent } from './actress-best/actress-best.component';
 import { ChartCategoryComponent } from './chart-category/chart-category.component';
 import { AverageComponent } from './average/average.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ChartsModule } from 'ng2-charts';
 
 
 
 @NgModule({
   declarations: [DashboardComponent, ChartMovieComponent, ChartBalanceComponent, MovieBestComponent, ActorBestComponent, ActressBestComponent, ChartCategoryComponent, AverageComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    ChartsModule
   ]
 })
 export class DashboardModule { }

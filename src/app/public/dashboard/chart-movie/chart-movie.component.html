@@ -1,1 +1,16 @@
-<p>chart-movie works!</p>
+<div class="row pb-2 mb-2">
+    <div class="col-12 text-center">
+        Distribution by year
+    </div>
+</div>
+<div style="display: block" *ngIf="barChartData.length > 0">
+    <canvas baseChart
+        [data]="barChartData"
+        [labels]="barChartLabels"
+        [chartType]="barChartType"
+        [legend]="false"
+        [options]="barChartOption">
+
+    </canvas>
+  </div>
+

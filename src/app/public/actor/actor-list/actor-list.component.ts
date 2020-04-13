@@ -33,6 +33,7 @@ export class ActorListComponent implements OnInit {
   getCountries(){
     this.countryService.getCountries()
     .subscribe(data => this.countries = data);
+    
   }
 
   onItemChange(item: any)
@@ -41,7 +42,8 @@ export class ActorListComponent implements OnInit {
       this.actors = this.actorsInit;
     }
     else {
-      this.actors = this.actorsInit.filter(actor => actor.Country.name === item);
+      let actors = this.actorsInit;
+      actors = actors.filter(actor => actor.Country.name === item);
     }
   }
 

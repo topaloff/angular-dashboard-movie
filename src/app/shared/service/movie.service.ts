@@ -23,6 +23,24 @@ export class MovieService {
     );
   }
 
+  // ** Get Movies
+  getBestMovies(): Observable<Movie[]> {
+    return this.http.get<Movie[]>(env.apiUrl + 'movies/best')
+    .pipe(
+      tap(data => data),
+      catchError(this.errorService.handleError('getBestMovies', []))
+    );
+  }
+
+  // Get Number movie by year
+  getYears(): Observable<any[]> {
+    return this.http.get<any[]>(env.apiUrl + 'movies/years')
+    .pipe(
+      tap(data => data),
+      catchError(this.errorService.handleError('getMovieYear', []))
+    );
+  }
+
    // ** Get Movie
    getMovieDetail(id: string): Observable<Movie> {
     return this.http.get<any>(env.apiUrl + 'movies/' + id)

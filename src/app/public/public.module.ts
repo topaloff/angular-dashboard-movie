@@ -1,3 +1,4 @@
+import { DashboardModule } from './dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -27,6 +28,8 @@ import { SharedModule } from '../shared/shared.module';
     PublicRoutingModule,
     SharedModule,
     CommonModule,
-    ]
+    DashboardModule,
+    
+  ]
 })
 export class PublicModule { }

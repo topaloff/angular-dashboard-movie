@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [],
@@ -8,6 +10,7 @@ import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    ChartsModule
   ],
   exports: [
     CommonModule,

@@ -1,1 +1,13 @@
-<p>chart-balance works!</p>
+<div class="row pb-2 mb-2">
+    <div class="col-12 text-center">
+        Distribution by sex
+    </div>
+</div>
+<div style="display: block" *ngIf="doughnutChartData.length > 0">
+    <canvas baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType">
+            </canvas>
+  </div>
+
